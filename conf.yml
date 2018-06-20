@@ -1,0 +1,8 @@
+collection:
+
+  # Route
+  - pattern: "{*}"
+    pipeline:
+
+      - type: process
+        cmd: python geoip.py
