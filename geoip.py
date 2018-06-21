@@ -18,7 +18,10 @@ def get_geo_record(ip):
 	except (pygeoip.GeoIPError, IOError, AttributeError):
 		geo_record = None
 
-	return geo_record or {}
+	geo_record = geo_record or {}
+	geo_record['ip'] = ip
+
+	return geo_record
 
 
 if __name__ == '__main__':
