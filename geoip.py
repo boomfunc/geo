@@ -1,5 +1,6 @@
 import os
 import sys
+import json
 
 import pygeoip
 
@@ -22,4 +23,6 @@ def get_geo_record(ip):
 
 if __name__ == '__main__':
 	ip = sys.stdin.read()
-	sys.stdout.write('NDJKNDJKDNJKDNDJKNDJKNDJKDNJKDNDJKNDJKDNJKDNDNJK', ip)
+	print json.dumps(
+		get_geo_record(ip)
+	)
