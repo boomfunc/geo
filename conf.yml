@@ -1,12 +1,11 @@
 collection:
 
   # AWS ECS ping
-  - pattern: "{GET|HEAD} /ping HTTP/1.1"
+  - pattern: "ping"
     pipeline:
 
       - type: process
-        cmd: |
-          echo HTTP/1.1 204 No Content
+        cmd: echo pong
 
   # Route
   - pattern: "{*}"
