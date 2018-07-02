@@ -1,18 +1,10 @@
-FROM boomfunc/app:dev
+FROM boomfunc/base:latest
 
-RUN mkdir -p /bmp
-
-WORKDIR /bmp
-
-ADD . /bmp
+ADD . ${BMPROOT}/app
 
 # custom additional actions
 ENV PYGEOIP_VERSION 0.3.2
 
 RUN set -ex \
-		&& curl https://bootstrap.pypa.io/get-pip.py -o /tmp/get-pip.py \
-		&& python /tmp/get-pip.py \
-		\
-		&& pip install --no-cache-dir pygeoip==${PYGEOIP_VERSION} \
-		\
-		&& rm /tmp/get-pip.py
+		&& apk add --update --no-cache python py-pip \
+		&& pip install --no-cache-dir pygeoip==${PYGEOIP_VERSION}

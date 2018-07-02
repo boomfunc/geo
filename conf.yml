@@ -1,15 +1,15 @@
 collection:
 
+  # Route
+  - pattern: "geo"
+    pipeline:
+
+      - type: process
+        cmd: python geoip.py
+
   # AWS ECS ping
   - pattern: "ping"
     pipeline:
 
       - type: process
         cmd: echo pong
-
-  # Route
-  - pattern: "{*}"
-    pipeline:
-
-      - type: process
-        cmd: python geoip.py
