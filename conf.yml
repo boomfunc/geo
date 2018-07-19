@@ -5,7 +5,7 @@ collection:
     pipeline:
 
       - type: process
-        cmd: python geoip.py
+        cmd: ./geo/geoip -lang=ru -ip=185.86.151
 
   # AWS ECS ping
   - pattern: "ping"

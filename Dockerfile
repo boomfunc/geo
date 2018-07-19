@@ -1,15 +1,16 @@
-FROM boomfunc/base:latest
+# Prepare app code (some compiling and other)
+FROM golang:alpine as app
 
-ADD . ${BMPROOT}/app
-
-# custom additional actions
-ENV PYGEOIP_VERSION 0.3.2
+ADD . /boomfunc/app
 
 RUN set -ex \
-		&& apk add --no-cache \
-			python \
-			py-pip \
-		&& pip install --no-cache-dir pygeoip==${PYGEOIP_VERSION} \
-		\
-		&& rm -rf /var/cache/apk/* \
-		&& apk del py-pip
+	&& apk add --update --no-cache git \
+	&& cd /boomfunc/app \
+	&& go get -v -d \
+	&& go build geoip.go
+
+# Final container, copy from builders
+# Get pre-compiled base
+FROM boomfunc/base:latest as base
+
+COPY --from=app /boomfunc/app /boomfunc/app
