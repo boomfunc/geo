@@ -4,10 +4,15 @@ FROM golang:alpine as app
 ADD . /boomfunc/app
 
 RUN set -ex \
-	&& apk add --update --no-cache git \
+	&& apk add --update --no-cache --virtual .build-deps \
+		git \
 	&& cd /boomfunc/app \
 	&& go get -v -d \
-	&& go build geoip.go
+	&& go build geoip.go \
+	\
+	&& rm -rf /var/cache/apk/* \
+	&& apk del .build-deps
+
 
 # Final container, copy from builders
 # Get pre-compiled base
