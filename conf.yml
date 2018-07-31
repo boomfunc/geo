@@ -1,11 +1,18 @@
 collection:
 
   # Route
+  - pattern: "geo/my"
+    pipeline:
+
+      - type: process
+        cmd: ./geoip -lang=en -ip={{meta "ip"}}
+
+  # Route
   - pattern: "geo"
     pipeline:
 
       - type: process
-        cmd: ./geo/geoip -lang=ru -ip=185.86.151
+        cmd: ./geoip -lang=en -ip={{q "ip"}}
 
   # AWS ECS ping
   - pattern: "ping"
