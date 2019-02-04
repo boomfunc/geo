@@ -8,7 +8,7 @@ collection:
         cmd: ./geoip -lang=en -ip={{meta "ip"}}
 
   # Route
-  - pattern: "/geo"
+  - pattern: "/geo?{*}"
     pipeline:
 
       - type: process
