@@ -17,9 +17,10 @@ type Record struct {
 	Continent         string  `json:",omitempty"`
 	Country           string  `json:",omitempty"`
 	ISO               string  `json:",omitempty"`
-	IsInEuropeanUnion bool    `json:",omitempty"`
+	IsInEuropeanUnion bool    `json:""`
 	Latitude          float64 `json:",omitempty"`
 	Longitude         float64 `json:",omitempty"`
+	PostalCode        string  `json:",omitempty"`
 	TimeZone          string  `json:",omitempty"`
 }
 
@@ -37,6 +38,7 @@ func main() {
 
 	defer func() {
 		record.IP = ipStr
+
 		if recover() == nil {
 			// fill by raw if no error
 			record.City = raw.City.Names[lang]
@@ -46,6 +48,7 @@ func main() {
 			record.IsInEuropeanUnion = raw.Country.IsInEuropeanUnion
 			record.Latitude = raw.Location.Latitude
 			record.Longitude = raw.Location.Longitude
+			record.PostalCode = raw.Postal.Code
 			record.TimeZone = raw.Location.TimeZone
 		}
 
